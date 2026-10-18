@@ -1,0 +1,8 @@
+curl -sS -b cookies.txt -X PUT http://127.0.0.1:5000/customer/auth/review/1?review=A%20thoughtful%20and%20powerful%20novel
+
+{
+  "message": "Review successfully added or updated",
+  "reviews": {
+    "student_demo": "A thoughtful and powerful novel"
+  }
+}

@@ -1,0 +1,6 @@
+curl -sS -c cookies.txt -X POST http://127.0.0.1:5000/customer/login -H "Content-Type: application/json" --data-binary @credentials.json
+
+{
+  "message": "User successfully logged in",
+  "username": "student_demo"
+}

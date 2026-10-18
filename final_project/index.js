@@ -1,22 +1,16 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const session = require('express-session')
-const customer_routes = require('./router/auth_users.js').authenticated;
-const genl_routes = require('./router/general.js').general;
-
+﻿const express = require('express');
+const session = require('express-session');
 const app = express();
-
-app.use(express.json());
-
-app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUninitialized: true}))
-
-app.use("/customer/auth/*", function auth(req,res,next){
-//Write the authenication mechanism here
-});
- 
-const PORT =5000;
-
-app.use("/customer", customer_routes);
-app.use("/", genl_routes);
-
-app.listen(PORT,()=>console.log("Server is running"));
+app.set('json spaces',2);
+app.use(express.json({limit:'16kb'}));
+app.use('/customer',session({
+  secret:process.env.SESSION_SECRET || require('node:crypto').randomBytes(32).toString('hex'),
+  resave:false,saveUninitialized:false,
+  cookie:{httpOnly:true,sameSite:'lax',maxAge:3600000}
+}));
+app.use('/customer',require('./router/auth_users').authenticated);
+app.use('/',require('./router/general').general);
+app.use((req,res) => res.status(404).json({message:'Route not found'}));
+app.use((error,req,res,next) => res.status(error.status || 500).json({message:error.status === 400 ? 'Invalid JSON request' : 'Request failed'}));
+if (require.main === module) app.listen(process.env.PORT || 5000,'127.0.0.1',() => console.log('Bookstore server listening'));
+module.exports = app;

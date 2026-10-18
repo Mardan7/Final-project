@@ -1,0 +1,5 @@
+curl -sS -X POST http://127.0.0.1:5000/register -H "Content-Type: application/json" --data-binary @credentials.json
+
+{
+  "message": "User successfully registered. Now you can login"
+}

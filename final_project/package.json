@@ -1,19 +1,10 @@
-{
+﻿{
   "name": "bookshop",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.0",
+  "private": true,
+  "description": "IBM Express bookstore final project",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.18.1",
-    "express-session": "^1.17.3",
-    "jsonwebtoken": "^8.5.1",
-    "nodemon": "^2.0.19"
-  }
+  "scripts": {"start":"node index.js","test":"node --test","evidence":"node scripts/evidence.js"},
+  "engines": {"node":">=20"},
+  "dependencies": {"axios":"^1.12.0","express":"^4.21.2","express-session":"^1.18.1"}
 }
